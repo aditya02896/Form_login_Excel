@@ -80,6 +80,15 @@ public class UserFormController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=users.xlsx")
                 .body(excelData);
     }
+    @PostMapping("/export")
+    public ResponseEntity<byte[]> postExcel() throws IOException {
+        List<UserForm> users = userFormService.getAllUserForms();
+        byte[] excelData = excelExportService.generateExcel(users);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=users.xlsx")
+                .body(excelData);
+    }
 
 
 }
